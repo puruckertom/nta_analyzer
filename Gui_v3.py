@@ -7,7 +7,8 @@
 import Tkinter as tk
 import tkFileDialog
 import tkMessageBox
-import numpy, os
+import numpy
+import os
 import pandas as pd
 import urllib
 #import glob
