@@ -4,13 +4,13 @@
  .. This GUI is meant to intialize the NTA Data Processing Packages
     Module Author: Hussein Al Ghoul hussein.al-ghoul@epa.gov 
 """
-import Tkinter as tk
-import tkFileDialog
-import tkMessageBox
+import tkinter as tk
+import tkinter.filedialog
+import tkinter.messagebox
 import numpy
 import os
 import pandas as pd
-import urllib
+import urllib.request, urllib.parse, urllib.error
 #import glob
 import functions_Universal_v3 as fn
 import batch_search_v3 as bs
@@ -92,7 +92,7 @@ class Control(object):
                 file[index] = file[index].rsplit('.',1)[0] + "_" + timestr + ".csv"
             else:
                 file[index] = file[index].rsplit('.',1)[0] + "_" + timestr + ".xlsx"                
-        print file[index]
+        print(file[index])
         return file[index]
 
 
@@ -116,7 +116,7 @@ class Control(object):
             btnxt1.pack(side="left")
             root.update()
         if ERROR == 1:
-            tkMessageBox.showinfo("ERROR","You Need to Select a Data File")
+            tkinter.messagebox.showinfo("ERROR","You Need to Select a Data File")
         DIRECTORY = con[0] + "_" + con[1]
         if not os.path.exists(DIRECTORY):
                 os.makedirs(DIRECTORY)
@@ -128,7 +128,7 @@ class Control(object):
         con = [self.studyL,self.userL]
         ent2.delete(0,tk.END)
         numpy.save(os.getcwd()+"/control_list.npy",con)
-        root.filename = tkFileDialog.askopenfilenames(initialdir = os.getcwd(),title = "Select file",filetypes = (("csv files","*.csv"),("tsv files","*.tsv"),("all files","*.*")))
+        root.filename = tkinter.filedialog.askopenfilenames(initialdir = os.getcwd(),title = "Select file",filetypes = (("csv files","*.csv"),("tsv files","*.tsv"),("all files","*.*")))
         fname = ['','']
         for i in range(2):
             fname[i] = root.tk.splitlist(root.filename)[i].rsplit('/',1)[-1]
@@ -143,12 +143,12 @@ class Control(object):
     def Tracers_openfile(self):
         global ERROR
         contra.entc2.delete(0,tk.END)
-        root.filename = tkFileDialog.askopenfilenames(initialdir = os.getcwd(),title = "Select file",filetypes = (("csv files","*.csv"),("tsv files","*.tsv"),("all files","*.*")))
+        root.filename = tkinter.filedialog.askopenfilenames(initialdir = os.getcwd(),title = "Select file",filetypes = (("csv files","*.csv"),("tsv files","*.tsv"),("all files","*.*")))
         for i in range(1):
             fname = root.tk.splitlist(root.filename)[i].rsplit('/',1)[-1]
         fname_list = fname
         contra.tfile = root.tk.splitlist(root.filename)[0] 
-        print contra.tfile           
+        print(contra.tfile)           
         contra.entc2.insert("end",fname_list)
         ERROR = 0
         return contra.tfile
@@ -158,12 +158,12 @@ class Control(object):
     def NegMGF_openfile(self):
         global ERROR
         contra.entm1.delete(0,tk.END)
-        root.filename = tkFileDialog.askopenfilenames(initialdir = os.getcwd(),title = "Select file",filetypes = (("csv files","*.csv"),("tsv files","*.tsv"),("all files","*.*")))
+        root.filename = tkinter.filedialog.askopenfilenames(initialdir = os.getcwd(),title = "Select file",filetypes = (("csv files","*.csv"),("tsv files","*.tsv"),("all files","*.*")))
         for i in range(1):
             fname = root.tk.splitlist(root.filename)[i].rsplit('/',1)[-1]
         fname_list = fname
         contra.NegMGFfile = root.tk.splitlist(root.filename)[0] 
-        print contra.NegMGFfile           
+        print(contra.NegMGFfile)           
         contra.entm1.insert("end",fname_list)
         ERROR = 0
         return contra.NegMGFfile
@@ -172,12 +172,12 @@ class Control(object):
     def PosMGF_openfile(self):
         global ERROR
         contra.entm2.delete(0,tk.END)
-        root.filename = tkFileDialog.askopenfilenames(initialdir = os.getcwd(),title = "Select file",filetypes = (("csv files","*.csv"),("tsv files","*.tsv"),("all files","*.*")))
+        root.filename = tkinter.filedialog.askopenfilenames(initialdir = os.getcwd(),title = "Select file",filetypes = (("csv files","*.csv"),("tsv files","*.tsv"),("all files","*.*")))
         for i in range(1):
             fname = root.tk.splitlist(root.filename)[i].rsplit('/',1)[-1]
         fname_list = fname
         contra.PosMGFfile = root.tk.splitlist(root.filename)[0] 
-        print contra.PosMGFfile           
+        print(contra.PosMGFfile)           
         contra.entm2.insert("end",fname_list)
         ERROR = 0
         return contra.PosMGFfile
@@ -187,12 +187,12 @@ class Control(object):
     def NegMGFtxt_openfile(self):
         global ERROR
         contra.entmgf1.delete(0,tk.END)
-        root.filename = tkFileDialog.askopenfilenames(initialdir = os.getcwd(),title = "Select file",filetypes = (("mgf files","*.mgf"),("csv files","*.csv"),("all files","*.*")))
+        root.filename = tkinter.filedialog.askopenfilenames(initialdir = os.getcwd(),title = "Select file",filetypes = (("mgf files","*.mgf"),("csv files","*.csv"),("all files","*.*")))
         for i in range(1):
             fname = root.tk.splitlist(root.filename)[i].rsplit('/',1)[-1]
         fname_list = fname
         contra.NegMGFtxtfile = root.tk.splitlist(root.filename)[0] 
-        print contra.NegMGFtxtfile           
+        print(contra.NegMGFtxtfile)           
         contra.entmgf1.insert("end",fname_list)
         ERROR = 0
         return contra.NegMGFtxtfile
@@ -201,12 +201,12 @@ class Control(object):
     def PosMGFtxt_openfile(self):
         global ERROR
         contra.entmgf2.delete(0,tk.END)
-        root.filename = tkFileDialog.askopenfilenames(initialdir = os.getcwd(),title = "Select file",filetypes = (("mgf files","*.mgf"),("csv files","*.csv"),("all files","*.*")))
+        root.filename = tkinter.filedialog.askopenfilenames(initialdir = os.getcwd(),title = "Select file",filetypes = (("mgf files","*.mgf"),("csv files","*.csv"),("all files","*.*")))
         for i in range(1):
             fname = root.tk.splitlist(root.filename)[i].rsplit('/',1)[-1]
         fname_list = fname
         contra.PosMGFtxtfile = root.tk.splitlist(root.filename)[0] 
-        print contra.PosMGFtxtfile           
+        print(contra.PosMGFtxtfile)           
         contra.entmgf2.insert("end",fname_list)
         ERROR = 0
         return contra.PosMGFtxtfile
@@ -250,7 +250,7 @@ class Control(object):
 
     def Read_Data(self,arg,File,index):
         global OUTPUT
-        print checkCmd0.get()
+        print(checkCmd0.get())
         btnrd.configure(bg='light yellow')
         try:
             contra.df[index] = fn.read_data(File,index)
@@ -260,7 +260,7 @@ class Control(object):
             T.insert(tk.END, OUTPUT)
             return contra.df[index]
         except:
-            print "This thread just failed"
+            print("This thread just failed")
             btnrd.configure(bg='IndianRed1')
             raise
             
@@ -268,7 +268,7 @@ class Control(object):
 
     def Parse_Data(arg,index):
         global OUTPUT
-        print contra.df[index]
+        print(contra.df[index])
         contra.df[index] = fn.parse_headers(contra.df[index],index) # 3 corresponds to replicate number
         OUTPUT= "Data File was parsed! \n" 
         T.insert(tk.END, OUTPUT)
@@ -304,14 +304,14 @@ class Control(object):
                 OUTPUT = "Statistical Parsing is done! \n"
             return contra.df[index]      
         except:
-            print "This thread just failed"
+            print("This thread just failed")
             btnstat.configure(bg='IndianRed1')
             raise
 
     def Check_Tracers(arg,File,index,mass_accuracy,rt_accuracy):
 
         #framec0.pack_forget()
-        print mass_accuracy
+        print(mass_accuracy)
         global OUTPUT
         btnct.configure(bg='light yellow')
         df_tracers = [None,None]
@@ -339,7 +339,7 @@ class Control(object):
             T.insert(tk.END, OUTPUT)
             #return contra.df[index]      
         except:
-            print "This thread just failed"
+            print("This thread just failed")
             btnct.configure(bg='IndianRed1')
             raise
             
@@ -357,7 +357,7 @@ class Control(object):
         else:
             ENTACT=False
             #controls = [3.0,2,0.5]
-        print controls
+        print(controls)
         try:
             contra.df[index] = fn.clean_features(contra.df[index],index,ENTACT,controls)            
             if checkCmd4.get():
@@ -375,7 +375,7 @@ class Control(object):
             T.insert(tk.END, OUTPUT)
             return contra.df[index] 
         except:
-            print "This thread just failed"
+            print("This thread just failed")
             btncf.configure(bg='IndianRed1')
             raise
 
@@ -403,7 +403,7 @@ class Control(object):
             T.insert(tk.END, OUTPUT)
             return contra.df[index] 
         except:
-            print "This thread just failed"
+            print("This thread just failed")
             btncflags.configure(bg='IndianRed1')
             raise
         
@@ -427,7 +427,7 @@ class Control(object):
             T.insert(tk.END, OUTPUT)
             return contra.df[index]      
         except:
-            print "This thread just failed"
+            print("This thread just failed")
             btndd.configure(bg='IndianRed1')
             raise
             
@@ -453,7 +453,7 @@ class Control(object):
             OUTPUT = "DModes were Combined! \n"
             T.insert(tk.END, OUTPUT)
         except:
-            print "This thread just failed"
+            print("This thread just failed")
             btncd.configure(bg='IndianRed1')
             raise
 
@@ -490,11 +490,11 @@ class Control(object):
             #contra.Sname[0] = "Data_Both_Modes_toxpi.xlsx"
             contra.Sname[0] = "Data_Both_Modes_toxpi.csv"
             
-            print "Finished the Selenium part"
+            print("Finished the Selenium part")
             time.sleep(5)
             #dashboard_file[0] = [filename for filename in os.listdir(os.getcwd()+"/"+DIRECTORY) if filename.startswith('ChemistryDashboard-AdvancedSearch')]
             dashboard_file = contra.Download_Finished()
-            print "This is the dashboard_file: " + dashboard_file
+            print("This is the dashboard_file: " + dashboard_file)
             contra.dft = tp.process_toxpi(contra.dft,directory, dashboard_file,tophit,by_mass)
             '''the following line is commented out until the toxpi calculation methond are reviewed'''
             #contra.dft = tp.calculate_toxpi(contra.dft,directory) 
@@ -513,7 +513,7 @@ class Control(object):
             #contra.dft.to_csv(os.getcwd()+"/"+DIRECTORY+"/"+"toxpi_merged_file.csv",index=False)
             return contra.dft
         except:
-            print "This thread just failed"
+            print("This thread just failed")
             btntp.configure(bg='IndianRed1')
             raise
 
@@ -532,9 +532,9 @@ class Control(object):
                 POSMODE = False            
             dfpc = contra.dft.reset_index()
             contra.df_cfmid[index] = cfmid.compare_mgf_df(mgf_file,dfpc,cfmid_ppm,cfmid_ppm_sl,POSMODE,filtering)
-            print contra.df_cfmid[index]
+            print(contra.df_cfmid[index])
         except:
-            print "This thread just failed"
+            print("This thread just failed")
             btncfmidg.configure(bg='IndianRed1')
             raise
 
@@ -561,21 +561,21 @@ class Control(object):
             T.insert(tk.END, OUTPUT)
 
         except:
-            print "This thread just failed"
+            print("This thread just failed")
             btncfmidg.configure(bg='IndianRed1')
             raise            
 
     def MGF_Converter(arg,mgf_tfile,index):
         btnMGF.configure(bg='light yellow')        
         try:
-            print mgf_tfile.split('.',1)[0]+'.csv'
+            print(mgf_tfile.split('.',1)[0]+'.csv')
             if os.path.isfile(mgf_tfile.split('.',1)[0]+'.csv'):
                 OUTPUT = "This file already exists, not recreating it."
                 T.insert(tk.END, OUTPUT)    
             else:
                 cfmid.parseMGF(mgf_tfile)
         except:
-            print "This thread just failed"
+            print("This thread just failed")
             btnMGF.configure(bg='IndianRed1')
             raise           
 
@@ -611,10 +611,10 @@ class Control(object):
                 if not filename.startswith('ChemistryDashboard-Batch-Search'):
                     time.sleep(1)
                 if filename.startswith('ChemistryDashboard-Batch-Search'):
-                    print "in loop filename: "+filename
+                    print("in loop filename: "+filename)
                     file = filename
                     finished = True
-        print "This is what was downloaded: " + file
+        print("This is what was downloaded: " + file)
         return file
     
 
@@ -665,7 +665,7 @@ class Control(object):
         threads = []
         controls = list()
         rep = fn.Replicates_Number(contra.df[0],0)
-        print rep
+        print(rep)
         contra.Controls_Win(rep)
         contra.Controls()
         btncut.wait_variable(var1)
@@ -760,7 +760,7 @@ class Control(object):
         btncfmidg.configure(bg='pale green')
         OUTPUT = "CFMID Data was Created! \n"
         T.insert(tk.END, OUTPUT)
-        print "this is what cfmid would do" 
+        print("this is what cfmid would do") 
 
 
 
@@ -844,7 +844,7 @@ class Control(object):
 
     def ask_quit(self):
         message = ["Later."]
-        if tkMessageBox.askokcancel("Quit", random.choice(message)):
+        if tkinter.messagebox.askokcancel("Quit", random.choice(message)):
             top1.destroy()
             rootS.destroy()
             root.destroy()

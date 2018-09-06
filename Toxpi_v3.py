@@ -105,13 +105,13 @@ def process_toxpi(df=None, dir='', file='',tophit=False,by_mass=True):
     if tophit:
         dfe = dfe.drop_duplicates(subset=['Compound','Mass','Retention_Time','Score'])
     else:
-        print "Not Selecting Top Hit"
+        print("Not Selecting Top Hit")
     #print dfe
     columns = df.columns.values.tolist()
     columns.append('INPUT')    
     columns.append('FOUND_BY')
     columns.append('DTXSID')
-    print columns
+    print(columns)
     dfe.dropna(how='all')
     dfe = dfe[pd.notnull(dfe['INPUT'])]  
     #dfe.fillna('',inplace=True)
@@ -141,7 +141,7 @@ def calculate_toxpi(df,dir):
 
     df['TOXPI_SCORE'] = (WB*df['TP_BIOACTIVITY']+WE*df['TP_EXPOSURE']+WA*df['TP_ABUNDANCE']+WN*df['TP_FREQUENCY']).where(df['NUMBER_CATEGORY']=='A1',None)
 
-    print df
+    print(df)
     df.to_csv(directory+"/calculated_toxpi_variables.csv", index=False)
     return df
 

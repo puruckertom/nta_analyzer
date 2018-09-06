@@ -76,7 +76,7 @@ def Commons(chunks,dfU,ppm_sl,filtering,energy=False):
     #df.to_csv("Commons_Output.csv",index=False)
     WL = dft.groupby(['MASS_x','DTXCID','FORMULA','ENERGY'])['WEIGHTSC'].apply(list).to_dict()
     WU = dft.groupby(['MASS_x','DTXCID','FORMULA','ENERGY'])['WEIGHTSM'].apply(list).to_dict()
-    print(len(WL))
+    print((len(WL)))
     #print WUI
     W = list()
     W.append(WL)
@@ -142,7 +142,7 @@ def Score(dfL=None,dfU=None,Mass=0.0,ppm_sl=0,filtering=False,energy=False):
         #df['RANK'] = df.groupby(['FORMULA','ENERGY'])['SCORE'].rank(method='dense',ascending=False) 
         #df = df.pivot(index='DTXCID', columns='ENERGY', values='SCORE')
         dfp = pd.pivot_table(dfi,values='SCORE', index='DTXCID',columns='ENERGY').reset_index()
-        print dfp
+        print(dfp)
         df = pd.merge(dfi,dfp,how='inner',on='DTXCID')
         df.drop(['ENERGY','SCORE'], axis=1,inplace=True)
         df.drop_duplicates(subset=['DTXCID'],keep='first',inplace=True)
@@ -171,7 +171,7 @@ def Score(dfL=None,dfU=None,Mass=0.0,ppm_sl=0,filtering=False,energy=False):
         dfs.sort_values(['MASS','FORMULA','RANK'],ascending=True,inplace=True)    
     #print (dfs)
     #dfs.to_csv("Score_Sum.csv",index=False)
-    print ("Number of Matches: " + str(len(WL)))
+    print(("Number of Matches: " + str(len(WL))))
     DF.append(df)
     DF.append(dfs)
     return DF

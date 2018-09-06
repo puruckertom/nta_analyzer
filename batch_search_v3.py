@@ -5,7 +5,7 @@ from selenium.webdriver.firefox.firefox_binary import FirefoxBinary
 
 import os
 import time
-import urllib
+import urllib.request, urllib.parse, urllib.error
 
 
 def batch_search(masses=None,formulas=None,directory='',by_formula=True,ppm=10):
@@ -27,7 +27,7 @@ def batch_search(masses=None,formulas=None,directory='',by_formula=True,ppm=10):
     driver.set_window_position(0,0)
     driver.maximize_window()
 
-    if urllib.urlopen(external_url).getcode() == 200:
+    if urllib.request.urlopen(external_url).getcode() == 200:
         value = 'value'
         driver.get(external_url)
     else:
@@ -38,14 +38,14 @@ def batch_search(masses=None,formulas=None,directory='',by_formula=True,ppm=10):
 
         inputElement = driver.find_element_by_id("batch-search-chemicals")
         list_formulas = "\n".join(formulas)
-        print list_formulas
+        print(list_formulas)
         inputElement.send_keys(list_formulas)
     else:
         driver.find_element_by_xpath('//*[@'+value+'="ms_ready_monoisotopic_mass"]').click()
         driver.find_element_by_xpath('//*[@id="batch-search-mass-error-select"]/option[@value="'+str(ppm)+'"]').click() 
         inputElement = driver.find_element_by_id("batch-search-chemicals")
         list_masses = "\n".join(masses)
-        print list_masses
+        print(list_masses)
         inputElement.send_keys(list_masses)
     #driver.find_element_by_id("display-batch-chemicals-btn").click()
 
@@ -99,7 +99,7 @@ def batch_search(masses=None,formulas=None,directory='',by_formula=True,ppm=10):
     submit = driver.find_element_by_xpath('//*[@id="batch-search-download-chemicals"]')
     time.sleep(2)
     if submit.is_enabled():
-    	print "enabled"
+    	print("enabled")
     	submit.send_keys(Keys.ENTER);
     return True
 

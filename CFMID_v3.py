@@ -122,7 +122,7 @@ def list_maker(dfpc,dfg,mode):
     df.drop(df[df['MATCHES'] == '0'].index,inplace=True)
     df=df[np.isfinite(df['MASS'])]
     mlist = df['MASS'].unique().tolist()
-    print mlist
+    print(mlist)
     return mlist
 
     
@@ -145,19 +145,19 @@ def compare_mgf_df(file,dfpc,ppm,ppm_sl,POSMODE,filtering):
     #dfg.to_csv("dfg_aftercsv.csv",float_format='%.7f',index=False)  
     #mass_list = dfg['MASS'].unique().tolist()
     #mass_list = [312.184525]
-    print dfpc
+    print(dfpc)
     Polarity = polarity[0]
     mass_list = list_maker(dfpc,dfg,Polarity)
     if not mass_list:
         Polarity = polarity[1]
         mass_list = list_maker(dfpc,dfg,Polarity)
-    print mass_list
-    print("Number of masses to search: " + str(len(mass_list)))
+    print(mass_list)
+    print(("Number of masses to search: " + str(len(mass_list))))
     dfAE_list=list()
     dfS_list=list()  
     for mass in mass_list:
         index = mass_list.index(mass) + 1
-        print("searching mass " + str(mass) + " number " + str(index) + " of " + str(len(mass_list)))
+        print(("searching mass " + str(mass) + " number " + str(index) + " of " + str(len(mass_list))))
         dfcfmid = sqlCFMID(mass,ppm,mode)
         if not dfcfmid:
             print("No matches for this mass in CFMID library, consider changing the accuracy of the queried mass")
@@ -213,7 +213,7 @@ def merge_pcdl(dfpcdl,df):
     dfpcdl['MPP_ASSIGNED_FORMULA'] = dfpcdl['MPP_ASSIGNED_FORMULA'].str.replace(' ','')
     dfm = pd.merge(dfpcdl,df,how='left',left_on=['DTXCID_INDIVIDUAL_COMPONENT','Ionization_Mode'],right_on=['DTXCID','Ionization_Mode'])
     dfm.fillna('',inplace=True)
-    print dfpcdl.columns.values.tolist()[:64]
+    print(dfpcdl.columns.values.tolist()[:64])
     #dfm = dfm.set_index(dfpcdl.columns.values.tolist()[:64])
     #dfm.sort_values(['Neutral Monoisotopic Mass','MASS','RANK'],ascending=[True,True,True],inplace=True)
     return dfm
@@ -223,7 +223,7 @@ def merge_pcdl(dfpcdl,df):
 def indexing(file):
     df = pd.read_csv(file)
     df.set_index(df.columns.values.tolist(),inplace=True)
-    print df
+    print(df)
     df.to_excel('try_indexing_outcome.xlsx',engine='xlsxwriter')
 
 
