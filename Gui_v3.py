@@ -843,9 +843,7 @@ class Control(object):
         framemgf0.pack(side='bottom',padx=10,pady=10,expand=1,fill='both') 
 
     def ask_quit(self):
-        message = ["Quiters are losers, are you sure you want to quit?","Do you really want to quit and leave me alone?",
-                   "We did not go through all this processing for you to quit already, did we?","To quit or not to quit, that is the question.",
-                   "Thank you for using this awesome code, are you sure you want to leave?"]
+        message = ["Later."]
         if tkMessageBox.askokcancel("Quit", random.choice(message)):
             top1.destroy()
             rootS.destroy()

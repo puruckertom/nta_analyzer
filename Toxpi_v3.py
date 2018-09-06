@@ -44,7 +44,7 @@ def classification(x=None,y=None):
         clas = 'A2'
     if ratio ==1.0 and y==None:
         clas = 'B1'
-    if ration <1.0 and y==None:
+    if ratio <1.0 and y==None:
         clas = 'B2'
     return clas    
 
