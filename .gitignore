@@ -1,4 +1,6 @@
+.DS_Store
 .idea
+control_list.npy
 
 # Byte-compiled / optimized / DLL files
 __pycache__/
