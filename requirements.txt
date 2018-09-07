@@ -1,4 +1,6 @@
+matplotlib
 numpy
 pandas
 pymysql
 selenium
+tkinter
