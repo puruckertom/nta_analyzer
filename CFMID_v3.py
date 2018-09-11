@@ -1,9 +1,11 @@
-# -*- coding: utf-8 -*-
-"""
-Created on Tue Dec 12 10:11:13 2017
-
-@author: Hussein Al Ghoul
-"""
+#This script uses a list of masses that were searched on the dashboard to perform CFMID matching. It
+## requires MS/MS mgf files for positive and negative modes to search the
+#CFMID database for matches. Each mass is searched in the database within a user specified
+#window, pulls all the DTXCID matches, then looks for fragment matches between these DTXCIDs
+#and the input mass. A score is then calculated using cosine dot product. Results are then ranked
+#based on either their overall score (sum of multiple energy scores) or a score at a specific
+#collision energy. DTXCIDs with no fragment matches with the input spectrum are automatically
+#assigned a score of zero.
 
 import pandas as pd
 import numpy as np

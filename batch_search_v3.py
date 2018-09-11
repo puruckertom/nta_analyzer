@@ -1,3 +1,10 @@
+#This script is used to hit the comptox dashboard remotely. It uses a webdriver
+#(chromedriver) to automate the execution of a chrome browser window and automatically
+#copy the masses the user intends to search on the dashboard. During this process,
+#the User is expected to stop using the mouse on the screen where the Chrome window
+#with the dashboard is opened. Until an API is developed for this purpose, this is
+#the most efficient way to search the dashboard and automate the whole workflow process.
+
 from selenium import webdriver
 from selenium.webdriver.common.keys import Keys
 from selenium.webdriver.common.by import By

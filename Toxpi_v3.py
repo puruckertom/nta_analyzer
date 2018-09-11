@@ -1,4 +1,6 @@
 #!/usr/bin/env python
+#This script is designed to perform some post processing of the data pulled from
+#the dashboard and in later versions will perform extensive toxpi calculations.
 
 import numpy as np
 import matplotlib.cm as cm

@@ -1,4 +1,6 @@
-#!/d/home/apps/build64/bin/python
+#This is the script that is executed by the user in an ide. This frontend
+#GUI executes all the functions required by the NTA workflow at the EPA. A description of the
+#different parts of this GUI is provided below.
 
 """
  .. This GUI is meant to intialize the NTA Data Processing Packages
@@ -278,8 +280,8 @@ class Control(object):
 
     def Statistics(arg,File,index,mass_accuracy,rt_accuracy,ppm):
         global OUTPUT
-        #mass_accuracy = 20
-        #rt_accuracy = 0.05        
+        # mass_accuracy = 20
+        # rt_accuracy = 0.05
         btnstat.configure(bg='light goldenrod yellow')
         contra.Fname[index] = File.rsplit('/',1)[-1]
         contra.Sname[index] = contra.Fname[index].rsplit('.',1)[0] + "_Statistics.csv"
@@ -1034,7 +1036,7 @@ R2 = tk.Radiobutton(frameTracers0, text="Da",foreground='black', variable=varR1,
 R2.pack(padx=2,pady=15,expand=1,side="left",fill='both')
 entc0=tk.Entry(frameTracers0, width=5, font=55)
 entc0.pack(padx=2,pady=10,expand=0,side="left",fill='both')
-
+entc0.insert('end', 20)
 
 frameTracers1 = tk.Frame(framec0)
 frameTracers1.pack(expand=1,fill='both')
@@ -1042,6 +1044,7 @@ lc1=tk.Label(frameTracers1, text='RT Accuracy (min)',foreground='black')
 lc1.pack(padx=5,pady=15,expand=1,side="left",fill='both')
 entc1=tk.Entry(frameTracers1, width=5, font=55)
 entc1.pack(padx=2,pady=10,expand=0,side="left",fill='both')
+entc1.insert('end', 1)
 framec02=tk.Frame(framec0)
 framec02.pack(expand=1,fill='both')
 var = tk.IntVar()
@@ -1058,6 +1061,7 @@ lct0=tk.Label(frameCut1, text='Sample To Blank Ratio',foreground='black')
 lct0.pack(padx=5,pady=5,expand=1,side="left",fill='both')
 entct0=tk.Entry(frameCut1, width=5, font=55)
 entct0.pack(padx=20,pady=15,expand=0,side="left",fill='both')
+entct0.insert('end', 3)
 
 frameCut2 = tk.Frame(framec1)
 frameCut2.pack(expand=1,fill='both')
@@ -1073,6 +1077,7 @@ lct2=tk.Label(frameCut3, text='Maximum Replicate CV',foreground='black')
 lct2.pack(padx=5,pady=5,expand=1,side="left",fill='both')
 entct1=tk.Entry(frameCut3, width=5, font=55)
 entct1.pack(padx=20,pady=15,expand=0,side="left",fill='both')
+entct1.insert('end', 0.8)
 
 var1 = tk.IntVar()
 btncut=tk.Button(framec1, text="Use" , command= lambda: var1.set(1))
