@@ -13,7 +13,7 @@ import pandas as pd
 import urllib.request, urllib.parse, urllib.error
 #import glob
 import functions_Universal_v3 as fn
-import batch_search_v3 as bs
+from batch_search_v3 import BatchSearch
 import Toxpi_v3 as tp
 import CFMID_v3 as cfmid
 #from multiprocessing import Process,Manager
@@ -54,6 +54,7 @@ class Control(object):
 
         self.studyL = study
         self.userL = user
+        self.search = None
 
 
     def study(self):
@@ -589,16 +590,18 @@ class Control(object):
 
 
     def Batch_Search(self,by_mass=True,by_formula=False,ppm=10):
-        dir = os.getcwd()+"/"+DIRECTORY
+        dir = os.path.join(os.path.dirname(os.path.abspath(__file__)), DIRECTORY)
         compounds = list()
         mono_masses = list()
         if by_formula:
             compounds = fn.formulas(contra.dft)
-            bs.batch_search(masses=None,formulas=compounds,directory=dir)
+            self.search = BatchSearch()
+            self.search.batch_search(masses=None,formulas=compounds,directory=dir)
         if by_mass:
             mono_masses = fn.masses(contra.dft)
             mono_masses_str = [str(i) for i in mono_masses]
-            bs.batch_search(masses=mono_masses_str,formulas=None,directory=dir,by_formula=False,ppm=ppm)            
+            self.search = BatchSearch()
+            self.search.batch_search(masses=mono_masses_str,formulas=None,directory=dir,by_formula=False,ppm=ppm)
 
     #bs.batch_search(compounds,directory)
 
@@ -615,6 +618,7 @@ class Control(object):
                     file = filename
                     finished = True
         print("This is what was downloaded: " + file)
+        self.search.close_driver()
         return file
     
 
