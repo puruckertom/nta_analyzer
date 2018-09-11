@@ -3,4 +3,4 @@ numpy
 pandas
 pymysql
 selenium
-tkinter
+tk #includes tkinter
