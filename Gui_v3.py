@@ -4,7 +4,8 @@
 
 """
  .. This GUI is meant to intialize the NTA Data Processing Packages
-    Module Author: Hussein Al Ghoul hussein.al-ghoul@epa.gov 
+    Module Author: Hussein Al Ghoul hussein.al-ghoul@epa.gov
+    Modified by: Jeffrey Minucci minucci.jeffrey@epa.gov on 9/11/18
 """
 import tkinter as tk
 import tkinter.filedialog
@@ -610,15 +611,22 @@ class Control(object):
     def Download_Finished(self):
         directory = os.getcwd()+"/"+DIRECTORY
         finished = False
-        file = None
-        while not finished:
+        file_list = []
+        for i in range(100):
             for filename in os.listdir(directory):
-                if not filename.startswith('ChemistryDashboard-Batch-Search'):
-                    time.sleep(1)
                 if filename.startswith('ChemistryDashboard-Batch-Search'):
-                    print("in loop filename: "+filename)
-                    file = filename
+                    #print("in loop filename: "+filename)
+                    file_list.append(filename)
                     finished = True
+            if finished and i>10: #if there are multiple, wait 10 secs to see if a new one is downloaded
+                break
+            time.sleep(1)
+        if not finished:
+            raise Exception("Download from the CompTox Chemistry Dashboard failed!")
+        if len(file_list) > 1:
+            print("Multiple downloads found: "+ str(file_list))
+            print("Using the last one.")
+        file = file_list[len(file_list)-1]
         print("This is what was downloaded: " + file)
         self.search.close_driver()
         return file
